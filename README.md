@@ -1,0 +1,2 @@
+# ClaimYourDay
+Daily reward plugin
