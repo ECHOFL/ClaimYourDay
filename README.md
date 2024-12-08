@@ -1,6 +1,7 @@
 # ClaimYourDay
 Daily Reward Plugin
 
+
 Custom rewards for the 20 first days (or more) in rewards.yml
 Items with enchants, colorable name and lore, amount
 Command with placeholder
