@@ -4,4 +4,5 @@ main: me.fliqq.claimyourday.ClaimYourDay
 description: Daily reward plugin
 author: Fliqq
 api-version: "1.21.3"
-softdepend: []
+commands:
+  claimreward:

@@ -1,0 +1,85 @@
+rewards:
+  1:
+    type: item
+    material: DIAMOND
+    amount: 1
+    name: "Special Diamond"
+    lore:
+      - "A reward for your first day!"
+  2:
+    type: command
+    command: "give %player% minecraft:golden_apple 2"
+  3:
+    type: item
+    material: EMERALD
+    amount: 5
+  4:
+    type: command
+    command: "effect give %player% minecraft:speed 300 1"
+  5:
+    type: item
+    material: ENCHANTED_BOOK
+    enchantments:
+      - SHARPNESS:3
+  6:
+    type: item
+    material: IRON_INGOT
+    amount: 10
+  7:
+    type: command
+    command: "xp add %player% 100 points"
+  8:
+    type: item
+    material: DIAMOND_PICKAXE
+    enchantments:
+      - EFFICIENCY:2
+  9:
+    type: command
+    command: "give %player% minecraft:cooked_beef 16"
+  10:
+    type: item
+    material: ELYTRA
+    name: "Wings of Loyalty"
+    lore:
+      - "A reward for 10 days of dedication!"
+  11:
+    type: item
+    material: NETHERITE_INGOT
+    amount: 1
+  12:
+    type: command
+    command: "weather clear"
+  13:
+    type: item
+    material: ENCHANTED_GOLDEN_APPLE
+    amount: 1
+  14:
+    type: command
+    command: "time set day"
+  15:
+    type: item
+    material: BEACON
+    amount: 1
+  16:
+    type: command
+    command: "give %player% minecraft:trident 1"
+  17:
+    type: item
+    material: SHULKER_BOX
+    amount: 1
+  18:
+    type: command
+    command: "effect give %player% minecraft:regeneration 600 1"
+  19:
+    type: item
+    material: DRAGON_EGG
+    amount: 1
+  20:
+    type: item
+    material: TOTEM_OF_UNDYING
+    amount: 1
+    name: "Grand Prize"
+    lore:
+      - "Congratulations on 20 days of rewards!"
+    enchantments:
+      - DURABILITY:3
