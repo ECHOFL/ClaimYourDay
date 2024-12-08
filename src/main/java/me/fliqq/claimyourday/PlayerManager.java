@@ -8,14 +8,12 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Level;
 
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 public class PlayerManager {
-    
     private final Map<UUID, PlayerData> playerData;
     private File file;
     private FileConfiguration config;
@@ -48,8 +46,14 @@ public class PlayerManager {
     public void loadPlayer(Player player) {
         UUID uuid = player.getUniqueId();
         if (!playerData.containsKey(uuid)) {
-            playerData.put(uuid, new PlayerData(0, new Date(0)));
-            savePlayer(player);
+            ConfigurationSection playerSection = config.getConfigurationSection(uuid.toString());
+            if (playerSection != null) {
+                int lastRewardId = playerSection.getInt("last-reward-id", 0);
+                long lastClaimTime = playerSection.getLong("last-claim-time", 0);
+                playerData.put(uuid, new PlayerData(lastRewardId, new Date(lastClaimTime)));
+            } else {
+                playerData.put(uuid, new PlayerData(0, new Date(0)));
+            }
         }
     }
 
@@ -76,10 +80,21 @@ public class PlayerManager {
         if (data != null) {
             data.setLastRewardId(newRewardId);
             data.setLastClaimTime(new Date());
-            savePlayer(Bukkit.getPlayer(uuid));
         }
     }
 
-
-
+    public void saveAllPlayers() {
+        for (Map.Entry<UUID, PlayerData> entry : playerData.entrySet()) {
+            UUID uuid = entry.getKey();
+            PlayerData data = entry.getValue();
+            config.set(uuid.toString() + ".last-reward-id", data.getLastRewardId());
+            config.set(uuid.toString() + ".last-claim-time", data.getLastClaimTime().getTime());
+        }
+        try {
+            config.save(file);
+        } catch (IOException e) {
+            plugin.getLogger().log(Level.SEVERE, "Could not save player data", e);
+        }
+    }
 }
+

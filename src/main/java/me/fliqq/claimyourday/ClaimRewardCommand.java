@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class ClaimRewardCommand implements CommandExecutor {
 
@@ -27,19 +28,20 @@ public class ClaimRewardCommand implements CommandExecutor {
         }
 
         Player player = (Player) sender;
-        PlayerData playerData = playerManager.getPlayerData(player.getUniqueId());
+        UUID uuid = player.getUniqueId();
+        PlayerData playerData = playerManager.getPlayerData(uuid);
 
         if (playerData == null) {
             player.sendMessage("Error: Your player data could not be found.");
             return true;
         }
 
-        Date lastClaimTime = playerData.getLastClaimTime();
         Date now = new Date();
+        Date lastClaimTime = playerData.getLastClaimTime();
+        long timeDifference = now.getTime() - lastClaimTime.getTime();
 
-        // Check if 24 hours have passed since last claim
-        if (lastClaimTime != null && (now.getTime() - lastClaimTime.getTime() < 24 * 60 * 60 * 1000)) {
-            long timeLeft = 24 * 60 * 60 * 1000 - (now.getTime() - lastClaimTime.getTime());
+        if (timeDifference < 24 * 60 * 60 * 1000) { // 24 hours in milliseconds
+            long timeLeft = 24 * 60 * 60 * 1000 - timeDifference;
             player.sendMessage("You can claim your next reward in " + formatTimeLeft(timeLeft));
             return true;
         }
@@ -53,7 +55,8 @@ public class ClaimRewardCommand implements CommandExecutor {
         }
 
         reward.giveReward(player);
-        playerManager.updatePlayerData(player.getUniqueId(), nextRewardId);
+        playerManager.updatePlayerData(uuid, nextRewardId);
+        playerManager.savePlayer(player); // Save immediately after updating
         player.sendMessage("You've claimed your daily reward!");
 
         return true;

@@ -45,16 +45,18 @@ public class RewardManager {
             if(rewardsConfig == null) continue;
 
             String type = rewardsConfig.getString("type", null);
-            if(type == null || !type.matches("item") || !type.matches("command")){
-                throw new IllegalStateException("Type of reward is item and command");
+            if(type == null || (!type.equals("item") && !type.equals("command"))){
+                throw new IllegalStateException("Invalid reward type: " + type);
             }
-            if(type.matches("item")){
+            
+            if("item".equals(type)){
                 ItemStack item = createItemFromConfig(rewardsConfig);
                 rewards.put(day, new Reward(item, day));
-            }else if ("command".equals(type)){
+            } else if ("command".equals(type)){
                 String command = rewardsConfig.getString("command");
                 rewards.put(day, new Reward(command, day));
             }
+            
         }
 
     }

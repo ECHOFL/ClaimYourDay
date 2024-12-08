@@ -9,7 +9,7 @@ public class PlayerListener implements Listener {
     private final PlayerManager playerManager;
 
     public PlayerListener(PlayerManager playerManager) {
-        this.playerManager=playerManager;;
+        this.playerManager = playerManager;
     }
 
     @EventHandler

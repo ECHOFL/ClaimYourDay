@@ -33,9 +33,10 @@ public class Reward {
     public void giveReward(Player player){
         if(isItem()){
             player.getInventory().addItem(item);
+        }else if
+        (command != null){
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%player%", player.getName()));
         }
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%player", player.getName()));
-
     }
 
     public int getDay(){

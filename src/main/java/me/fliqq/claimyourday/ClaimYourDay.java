@@ -1,7 +1,5 @@
 package me.fliqq.claimyourday;
 
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class ClaimYourDay extends JavaPlugin
@@ -21,9 +19,7 @@ public class ClaimYourDay extends JavaPlugin
 
     @Override
     public void onDisable() {
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            playerManager.savePlayer(player);
-        }
+        playerManager.saveAllPlayers();
         getLogger().info("ClaimYourDay has been disabled!");
     }
 
